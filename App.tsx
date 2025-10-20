@@ -1,18 +1,18 @@
+import React, { useState, useMemo } from 'react';
 
-import React from 'react';
-
-interface Link {
+// --- Data for PYQ JSTAR Series ---
+interface PyqLink {
   href: string;
   text: string;
 }
 
-interface LinkSection {
+interface PyqSection {
   title: string;
-  links: Link[];
+  links: PyqLink[];
 }
 
-const linkData: LinkSection[] = [
-  {
+const pyqLinkData: PyqSection[] = [
+    {
     title: 'Mole Concept',
     links: [
       { href: 'https://unacademy.com/course/pyq-jstar-series-mole-concept/FPRU1RH3', text: 'Start - Mole Concept' },
@@ -89,12 +89,227 @@ const linkData: LinkSection[] = [
   },
 ];
 
+
+// --- Data for AKM SIR Module Discussion ---
+interface AkmLink {
+  text: string;
+  url: string;
+}
+
+interface AkmChapter {
+  id: string;
+  title: string;
+  links: AkmLink[];
+}
+
+const akmSirData: AkmChapter[] = [
+  {
+    id: 'mole-concept',
+    title: 'Mole Concept',
+    links: [
+      { text: 'From Ques. 1 to 15', url: 'https://unacademy.app.link/8TKTVArmhzb' },
+      { text: 'From Ques. 15 to 41', url: 'https://unacademy.com/class/module-discussion-i/MF8WKVAX' },
+      { text: 'From Ques. 41 to 61', url: 'https://unacademy.com/class/module-discussion-ii/HXBCEN9Z' },
+      { text: 'From Ques. 62 to 71', url: 'https://unacademy.com/class/module-discussion/L3Z4HZ5B' },
+      { text: 'From Ques. 72 to 90', url: 'https://unacademy.com/class/doubt-clearing-session/NHZHH8K4' },
+      { text: 'From Ques. 91 to 103', url: 'https://unacademy.com/class/module-discussion-mole-concept-i/R0EWGXHR' },
+      { text: 'From Ques. 103 to 118', url: 'https://unacademy.com/class/module-discussion-mole-concept-ii/4N9RRY5O' },
+      { text: 'From Ques. 119 to Last', url: 'https://unacademy.com/class/doubt-clearing-session/N18LZG5K' }
+    ]
+  },
+  {
+    id: 'atomic-structure',
+    title: 'Atomic Structure',
+    links: [
+      { text: 'Question 1 to 11', url: 'https://unacademy.com/class/doubt-clearing-session/9O6OUBHK' },
+      { text: 'Question 12 to 30', url: 'https://unacademy.com/class/module-discussion-mole-concept/B34X537A' },
+      { text: 'Question 31 to 85', url: 'https://unacademy.com/course/module-discussion-jstar-series-2023/ASBJBNVP' },
+      { text: 'Question 86 to 180', url: 'https://unacademy.com/course/module-discussion-jstar-series-atomic-structure/K748UA4B' },
+      { text: 'Part 1', url: 'https://unacademy.com/course/module-discussion-jstar-series-atomic-structure/K748UA4B' },
+      { text: 'Part 2', url: 'https://unacademy.com/course/module-discussion-jstar-series-2023/ASBJBNVP' },
+      { text: 'Part 3', url: 'https://unacademy.app.link/Ivu0D0k0grb' }
+    ]
+  },
+  {
+    id: 'chemical-equilibrium',
+    title: 'Chemical Equilibrium',
+    links: [
+      { text: 'Question 1 to 29', url: 'https://unacademy.com/class/module-discussion-iii/B8FOZN2Z' },
+      { text: 'Question 30 to Last', url: 'https://unacademy.com/course/module-discussion-jstar-series/ITRNUJI3' }
+    ]
+  },
+  {
+    id: 'thermodynamics',
+    title: 'Thermodynamics',
+    links: [
+      { text: 'Ques 1 to 25', url: 'https://unacademy.com/class/module-discussion-part-iiii/N4Q060PD' },
+      { text: 'Ques 25 to 158', url: 'https://unacademy.com/course/course-on-module-discussion-jstar-series-thermodynamics/0H1L15TI' },
+      { text: 'Ques 159 to Last', url: 'https://unacademy.com/course/course-on-module-discussion-jstar-series-thermodynamics/0H1L15TI' },
+      { text: 'Part 1', url: 'https://unacademy.com/course/course-on-module-discussion-jstar-series-solution-and-thermodynamics/PF9AQD9R' },
+      { text: 'Part 2', url: 'https://unacademy.com/course/course-on-module-discussion-jstar-series-thermodynamics-and-electrochemistry/YL579OPT' },
+      { text: 'Part 3', url: 'https://unacademy.com/course/course-on-module-discussion-jstar-series-thermodynamics/0H1L15TI' }
+    ]
+  },
+  {
+    id: 'ionic-equilibrium',
+    title: 'Ionic Equilibrium',
+    links: [
+      { text: 'Open', url: 'https://unacademy.com/course/course-on-module-discussion-jstar-series-ionic-equilibrium/6M45BE7C' }
+    ]
+  },
+  {
+    id: 'redox-reactions',
+    title: 'Redox Reactions',
+    links: [
+      { text: 'Not Yet Discussed', url: '#' }
+    ]
+  },
+  {
+    id: 'solutions',
+    title: 'Solutions',
+    links: [
+      { text: 'Ques 1 to 76', url: 'https://unacademy.com/course/course-on-module-discussion-jstar-series-2022/TTZTV36O' },
+      { text: 'Ques 77 to Last', url: 'https://unacademy.com/course/course-on-module-discussion-jstar-series-solution/R8ZBJVKP' },
+      { text: 'PYQs', url: 'https://unacademy.com/class/module-discussion-part-i/7RNIFBZ3' },
+      { text: 'Ques Last Lecture', url: 'https://unacademy.com/class/module-discussion-part-i/7RNIFBZ3' }
+    ]
+  },
+  {
+    id: 'electrochemistry',
+    title: 'Electrochemistry',
+    links: [
+      { text: 'Question 1 to 4 (01:13:13)', url: 'https://unacademy.com/class/module-discussion-part-iv/6L0FDZES' },
+      { text: 'Question 5 to 23', url: 'https://unacademy.com/class/module-discussion-part-v/2AME24U3' },
+      { text: 'Question 24 to 43', url: 'https://unacademy.com/class/module-discussion-part-vi/29AR28YQ' },
+      { text: 'Question 44 to 59', url: 'https://unacademy.com/class/ionic-equilibrium-part-iv/RJPMGN5U' },
+      { text: 'Question 60 to 70', url: 'https://unacademy.com/class/ionic-equilibrium-part-i/LEM21UEJ' },
+      { text: 'Question 71 to 84', url: 'https://unacademy.com/class/ionic-equilibrium-part-ii/0FGRJ31L' },
+      { text: 'Question 85 to 102', url: 'https://unacademy.com/class/doubt-clearing-session/FG4MD60A' },
+      { text: 'Question 102 to 120', url: 'https://unacademy.com/course/course-on-module-discussion-jstar-series-ionic-equilibrium/ZT34ZWGT' }
+    ]
+  },
+  {
+    id: 'chemical-kinetics',
+    title: 'Chemical Kinetics',
+    links: [
+      { text: 'Question 1 to 19', url: 'https://unacademy.com/class/module-discussion-chemical-kinetics-i/POQWVIQP' },
+      { text: 'Question 20 to 45', url: 'https://unacademy.com/class/doubt-clearing-session/UKR5O2T9' },
+      { text: 'Question 46 to 68', url: 'https://unacademy.com/class/module-discussion-chemical-kinetics-ii/BOMWCSDX' },
+      { text: 'Question 69 to Last', url: 'https://unacademy.com/class/module-discussion-solution/W6FOWOZD' }
+    ]
+  }
+];
+
+// --- Page Components ---
+
+const NoResults: React.FC = () => (
+  <div className="text-center py-10">
+    <p className="text-gray-400 text-xl">No topics found matching your search.</p>
+  </div>
+);
+
+
+const PyqPage: React.FC<{ data: PyqSection[] }> = ({ data }) => {
+  if (data.length === 0) {
+    return <NoResults />;
+  }
+  return (
+    <main className="w-full max-w-7xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {data.map((section, index) => (
+        <section key={index} className="bg-gray-800 rounded-xl p-6 shadow-lg flex flex-col">
+          <h2 className="text-2xl font-bold text-violet-400 mb-5 border-b-2 border-gray-700 pb-3">
+            {section.title}
+          </h2>
+          <div className="flex flex-col space-y-3">
+            {section.links.map((link, linkIndex) => (
+              <a
+                key={linkIndex}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full text-center py-3 px-4 bg-gray-700 text-gray-200 font-semibold rounded-lg shadow-md transition-all duration-300 ease-in-out transform hover:bg-violet-600 hover:text-white hover:-translate-y-1"
+              >
+                {link.text}
+              </a>
+            ))}
+          </div>
+        </section>
+      ))}
+    </main>
+  );
+};
+
+const AkmSirPage: React.FC<{ data: AkmChapter[] }> = ({ data }) => {
+    if (data.length === 0) {
+    return <NoResults />;
+  }
+  return (
+    <main className="w-full max-w-7xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {data.map((chapter) => (
+        <section key={chapter.id} className="bg-gray-800 rounded-xl p-6 shadow-lg flex flex-col">
+          <h2 className="text-2xl font-bold text-violet-400 mb-5 border-b-2 border-gray-700 pb-3">
+            {chapter.title}
+          </h2>
+          <div className="flex flex-col space-y-3">
+            {chapter.links.map((link, linkIndex) => (
+              <a
+                key={linkIndex}
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`w-full text-center py-3 px-4 bg-gray-700 text-gray-200 font-semibold rounded-lg shadow-md transition-all duration-300 ease-in-out transform ${link.url === '#' ? 'cursor-not-allowed opacity-50' : 'hover:bg-violet-600 hover:text-white hover:-translate-y-1'}`}
+              >
+                {link.text}
+              </a>
+            ))}
+          </div>
+        </section>
+      ))}
+    </main>
+  );
+};
+
+
+// --- Main App Component ---
+
+type Page = 'pyq' | 'akm';
+
 const App: React.FC = () => {
+  const [currentPage, setCurrentPage] = useState<Page>('pyq');
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const navButtonClasses = (page: Page) => 
+    `px-6 py-2 text-lg font-semibold rounded-lg transition-colors duration-300 ${
+      currentPage === page 
+      ? 'bg-violet-600 text-white shadow-lg' 
+      : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+    }`;
+
+  const pageTitles = {
+    pyq: 'PYQ JSTAR Series Links',
+    akm: 'AKM SIR Module Discussion',
+  };
+  
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value);
+  };
+  
+  const filteredPyqData = useMemo(() => 
+    pyqLinkData.filter(section =>
+      section.title.toLowerCase().includes(searchTerm.toLowerCase())
+    ), [searchTerm]);
+    
+  const filteredAkmSirData = useMemo(() =>
+    akmSirData.filter(chapter =>
+      chapter.title.toLowerCase().includes(searchTerm.toLowerCase())
+    ), [searchTerm]);
+
+
   return (
     <div className="min-h-screen w-full bg-gray-900 text-gray-100 flex flex-col items-center justify-start py-10 px-4">
       
-      <header className="text-center mb-12">
-        <h1 className="text-4xl sm:text-5xl font-bold text-white mb-3">PYQ JSTAR Series Links</h1>
+      <header className="text-center mb-6">
+        <h1 className="text-4xl sm:text-5xl font-bold text-white mb-3">{pageTitles[currentPage]}</h1>
         <p className="text-lg text-gray-400">
           Arranged by AYUSH | 
           <a 
@@ -108,28 +323,28 @@ const App: React.FC = () => {
         </p>
       </header>
       
-      <main className="w-full max-w-7xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {linkData.map((section, index) => (
-          <section key={index} className="bg-gray-800 rounded-xl p-6 shadow-lg flex flex-col">
-            <h2 className="text-2xl font-bold text-violet-400 mb-5 border-b-2 border-gray-700 pb-3">
-              {section.title}
-            </h2>
-            <div className="flex flex-col space-y-3">
-              {section.links.map((link, linkIndex) => (
-                <a
-                  key={linkIndex}
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full text-center py-3 px-4 bg-gray-700 text-gray-200 font-semibold rounded-lg shadow-md transition-all duration-300 ease-in-out transform hover:bg-violet-600 hover:text-white hover:-translate-y-1"
-                >
-                  {link.text}
-                </a>
-              ))}
-            </div>
-          </section>
-        ))}
-      </main>
+      <nav className="flex space-x-4 mb-6">
+        <button onClick={() => setCurrentPage('pyq')} className={navButtonClasses('pyq')}>
+          PYQ JSTAR Series
+        </button>
+        <button onClick={() => setCurrentPage('akm')} className={navButtonClasses('akm')}>
+          AKM SIR Module
+        </button>
+      </nav>
+
+      <div className="w-full max-w-xl mb-10">
+        <input
+          type="text"
+          placeholder="Search topics..."
+          value={searchTerm}
+          onChange={handleSearchChange}
+          className="w-full px-4 py-3 bg-gray-800 text-gray-200 border-2 border-gray-700 rounded-lg focus:outline-none focus:border-violet-500 transition-colors"
+          aria-label="Search topics"
+        />
+      </div>
+
+      {currentPage === 'pyq' ? <PyqPage data={filteredPyqData} /> : <AkmSirPage data={filteredAkmSirData} />}
+
     </div>
   );
 };
