@@ -216,7 +216,7 @@ const PyqPage: React.FC<{ data: PyqSection[] }> = ({ data }) => {
   return (
     <main className="w-full max-w-7xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       {data.map((section, index) => (
-        <section key={index} className="bg-gray-800 rounded-xl p-6 shadow-lg flex flex-col">
+        <section key={index} className="bg-black/30 backdrop-blur-sm border border-gray-700 rounded-xl p-6 shadow-lg flex flex-col">
           <h2 className="text-2xl font-bold text-violet-400 mb-5 border-b-2 border-gray-700 pb-3">
             {section.title}
           </h2>
@@ -227,7 +227,7 @@ const PyqPage: React.FC<{ data: PyqSection[] }> = ({ data }) => {
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full text-center py-3 px-4 bg-gray-700 text-gray-200 font-semibold rounded-lg shadow-md transition-all duration-300 ease-in-out transform hover:bg-violet-600 hover:text-white hover:-translate-y-1"
+                className="w-full text-center py-3 px-4 bg-white/10 backdrop-blur-sm text-gray-200 font-semibold rounded-lg shadow-md transition-all duration-300 ease-in-out transform hover:bg-violet-600/80 hover:text-white hover:-translate-y-1"
               >
                 {link.text}
               </a>
@@ -246,7 +246,7 @@ const AkmSirPage: React.FC<{ data: AkmChapter[] }> = ({ data }) => {
   return (
     <main className="w-full max-w-7xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       {data.map((chapter) => (
-        <section key={chapter.id} className="bg-gray-800 rounded-xl p-6 shadow-lg flex flex-col">
+        <section key={chapter.id} className="bg-black/30 backdrop-blur-sm border border-gray-700 rounded-xl p-6 shadow-lg flex flex-col">
           <h2 className="text-2xl font-bold text-violet-400 mb-5 border-b-2 border-gray-700 pb-3">
             {chapter.title}
           </h2>
@@ -257,7 +257,7 @@ const AkmSirPage: React.FC<{ data: AkmChapter[] }> = ({ data }) => {
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`w-full text-center py-3 px-4 bg-gray-700 text-gray-200 font-semibold rounded-lg shadow-md transition-all duration-300 ease-in-out transform ${link.url === '#' ? 'cursor-not-allowed opacity-50' : 'hover:bg-violet-600 hover:text-white hover:-translate-y-1'}`}
+                className={`w-full text-center py-3 px-4 bg-white/10 backdrop-blur-sm text-gray-200 font-semibold rounded-lg shadow-md transition-all duration-300 ease-in-out transform ${link.url === '#' ? 'cursor-not-allowed opacity-50' : 'hover:bg-violet-600/80 hover:text-white hover:-translate-y-1'}`}
               >
                 {link.text}
               </a>
@@ -279,10 +279,10 @@ const App: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
 
   const navButtonClasses = (page: Page) => 
-    `px-6 py-2 text-lg font-semibold rounded-lg transition-colors duration-300 ${
+    `px-6 py-2 text-lg font-semibold rounded-lg transition-colors duration-300 backdrop-blur-sm ${
       currentPage === page 
-      ? 'bg-violet-600 text-white shadow-lg' 
-      : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+      ? 'bg-violet-600/80 text-white shadow-lg' 
+      : 'bg-white/10 text-gray-300 hover:bg-violet-600/80'
     }`;
 
   const pageTitles = {
@@ -306,46 +306,49 @@ const App: React.FC = () => {
 
 
   return (
-    <div className="min-h-screen w-full bg-gray-900 text-gray-100 flex flex-col items-center justify-start py-10 px-4">
-      
-      <header className="text-center mb-6">
-        <h1 className="text-4xl sm:text-5xl font-bold text-white mb-3">{pageTitles[currentPage]}</h1>
-        <p className="text-lg text-gray-400">
-          Arranged by AYUSH | 
-          <a 
-            href="https://telegram.dog/IMAYUU03" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="text-violet-400 hover:text-violet-300 transition-colors ml-2"
-          >
-            TELEGRAM @IMAYUU03 <i className="fab fa-telegram ml-1"></i>
-          </a>
-        </p>
-      </header>
-      
-      <nav className="flex space-x-4 mb-6">
-        <button onClick={() => setCurrentPage('pyq')} className={navButtonClasses('pyq')}>
-          PYQ JSTAR Series
-        </button>
-        <button onClick={() => setCurrentPage('akm')} className={navButtonClasses('akm')}>
-          AKM SIR Module
-        </button>
-      </nav>
+    <>
+      <div className="watermark" aria-hidden="true">EPEX</div>
+      <div className="min-h-screen w-full text-gray-100 flex flex-col items-center justify-start py-10 px-4 relative z-10">
+        
+        <header className="text-center mb-6">
+          <h1 className="text-4xl sm:text-5xl font-bold text-white mb-3">{pageTitles[currentPage]}</h1>
+          <p className="text-lg text-gray-400">
+            Arranged by AYUSH | 
+            <a 
+              href="https://telegram.dog/IMAYUU03" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="text-violet-400 hover:text-violet-300 transition-colors ml-2"
+            >
+              TELEGRAM @IMAYUU03 <i className="fab fa-telegram ml-1"></i>
+            </a>
+          </p>
+        </header>
+        
+        <nav className="flex space-x-4 mb-6">
+          <button onClick={() => setCurrentPage('pyq')} className={navButtonClasses('pyq')}>
+            PYQ JSTAR Series
+          </button>
+          <button onClick={() => setCurrentPage('akm')} className={navButtonClasses('akm')}>
+            AKM SIR Module
+          </button>
+        </nav>
 
-      <div className="w-full max-w-xl mb-10">
-        <input
-          type="text"
-          placeholder="Search topics..."
-          value={searchTerm}
-          onChange={handleSearchChange}
-          className="w-full px-4 py-3 bg-gray-800 text-gray-200 border-2 border-gray-700 rounded-lg focus:outline-none focus:border-violet-500 transition-colors"
-          aria-label="Search topics"
-        />
+        <div className="w-full max-w-xl mb-10">
+          <input
+            type="text"
+            placeholder="Search topics..."
+            value={searchTerm}
+            onChange={handleSearchChange}
+            className="w-full px-4 py-3 bg-black/30 backdrop-blur-sm text-gray-200 border-2 border-gray-700 rounded-lg focus:outline-none focus:border-violet-500 transition-colors"
+            aria-label="Search topics"
+          />
+        </div>
+
+        {currentPage === 'pyq' ? <PyqPage data={filteredPyqData} /> : <AkmSirPage data={filteredAkmSirData} />}
+
       </div>
-
-      {currentPage === 'pyq' ? <PyqPage data={filteredPyqData} /> : <AkmSirPage data={filteredAkmSirData} />}
-
-    </div>
+    </>
   );
 };
 
